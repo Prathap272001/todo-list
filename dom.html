@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <title>DOM</title>
+</head>
+
+<body id="Body" style="zoom: 100%; background-color: rgb(22, 56, 56);">
+    <div id="butt">
+        <button onclick="zoomOut()">-</button>
+        <button onclick="zoomIn()">+</button>
+    </div>
+    <div class="dat">
+        <input type="date" name="date" id="d" >
+
+    </div>
+    
+
+    <nav id="stl">
+
+        <div class="header">
+            <h2>Task list</h2>
+            <input type="text" id="myInput" placeholder="add list">
+            <button onclick="newElement()" class="addBtn">add</button><br>
+            <input type="text" name="" id="sInput" placeholder="type to Search" onkeyup="search()">
+        </div>
+        <div class="u">
+            <ul id="myUL">
+            </ul>
+
+        </div>
+        
+    </nav>
+    
+
+
+
+    <script>
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("myInput").value;
+            var t = document.createTextNode(inputValue);
+            var c = document.createElement("input")
+            c.type = 'checkbox'
+            li.appendChild(c)
+            c.onclick = () => {
+                li.classList.toggle('compl')
+            }
+            li.appendChild(t);
+            if (inputValue === '') {
+                alert("You must write something!");
+            } else {
+                document.getElementById("myUL").appendChild(li)
+            }
+            document.getElementById("myInput").value = "";
+            let dd =" "+ document.getElementById('d').value+" "
+            var tt = document.createTextNode(dd);
+            var span = document.createElement("SPAN");
+            var txt = document.createElement("button");
+            txt.textContent = "remove"
+            span.className = "del";
+            span.appendChild(tt);
+            span.appendChild(txt);
+            li.appendChild(span);
+            document.getElementById('d').value = "";
+
+            let close = document.getElementsByClassName("del");
+            for (let i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+
+          
+       
+        function search() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('sInput') ;
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+            for (i = 0; i < li.length; i++) {
+                a = li[i];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().includes(filter) == true) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            } document.getElementById('d').value = "";
+        }
+
+        function zoomIn() {
+            var Page = document.getElementById('Body');
+            var zoom = parseInt(Page.style.zoom) + 20 + '%'
+            Page.style.zoom = zoom;
+            return true;
+        }
+
+        function zoomOut() {
+            var Page = document.getElementById('Body');
+            var zoom = parseInt(Page.style.zoom) - 20 + '%'
+            Page.style.zoom = zoom;
+            return true;
+        }
+    </script>
+
+</body>
+<style>
+ #stl {
+        margin-top: 150px;
+        margin-left: 550px;
+        border: 2px solid black;
+        width: 350px;
+        height: 400px;
+        background-color: antiquewhite;
+        border-radius: 20px;
+        
+
+    }
+    .u 
+    {
+        width: 350px;
+        height: 200px;
+        overflow: auto;
+        
+        
+    }
+    .u::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    .header input,
+    li {
+        margin-left: 70px;
+        margin-top: 10px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    li.compl {
+        color: rgb(224, 15, 15);
+        text-decoration: line-through;
+    }
+
+    #butt button {
+        font-size: xx-large;
+        background-color: aqua;
+        width: 60px;
+    }
+    .dat
+    {
+        margin-left: 1300px;
+        display: flex;
+      
+    }
+    .dat input
+    {
+        background-color: aqua;
+      
+    }
+</style>
+
+</html>
